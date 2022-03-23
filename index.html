@@ -13,23 +13,28 @@
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"
         integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-    <script src="./scripts/index.js"></script>
-    <script src="./scripts/validations.js"></script>
-    <script src="./scripts/main.js"></script>
-    <script src="./scripts/formvalidation.js"></script>
-    <script src="./scripts/resources.js"></script>
+    <!-- <script src="./scripts/index.js"></script> -->
+    <!-- <script src="./scripts/validations.js"></script> -->
+    <!-- <script src="./scripts/main.js"></script> -->
+    <!-- <script src="./scripts/formvalidation.js"></script> -->
+    <!-- <script src="./scripts/resources.js"></script> -->
+    <script src="./scripts/AllValidations.js"></script>
     <title>Football | Registration</title>
     <style>
         .retrieve{
             position: relative;
             left: 10px;
         }
+        .message{
+            color: red;
+            margin-top: 2px;
+        }
     </style>
 </head>
 
 <body>
 
-    <form action="" method="post">
+    <form action="" method="post" id="form1">
         <div class="out-bg2">
             <div class="out-bg">
                 <h1 class="main-title">Football Registration Form</h1>
@@ -54,12 +59,12 @@
                                     <label for="validationCustom01" class="form-label">FIRST NAME</label>
                                     <sup style="color: red;">*</sup>
                                     <br><br>
-                                    <input type="text" inputmode="text" class="form-feild form-control" id="firstName"
-                                        placeholder="What is your first name?" name="firstname" required>
-                                    <div class="feedback invalid-feedback">
-                                        Please provide First Name
+                                    <input type="text" inputmode="text" class="form-feild form-control" id="firstName" oninput="firstNameValidation();"
+                                        placeholder="What is your first name?" value="" name="firstname" required>
+                                    <div class="message" id="fname-feedback">
+                                       
                                     </div>
-
+                                    <!-- <p ></p> -->
                                     <br>
 
                                 </div>
@@ -68,10 +73,8 @@
                                     <!-- <sup style="color: red;">*</sup> -->
                                     <br><br>
                                     <input type="text" inputmode="text" class="form-feild form-control" id="lastName"
-                                        placeholder="What is your last name?" name="lastname">
-                                    <!-- <div class="feedback invalid-feedback"> -->
-                                    <!-- Message to write here -->
-                                    <!-- </div> -->
+                                        placeholder="What is your last name?" name="lastname" oninput="lastNameValidation();">
+                                    <div class="message" id="lname-feedback"></div>
                                     <br>
                                 </div>
                             </div>
@@ -312,9 +315,9 @@
                                 class="inpt2 form-feild form-control" id="phno" name="phone" type="tel"
                                 name="phonenumber" aria-describedby="phonenumber"
                                 placeholder="What is the best # to reach you?" required pattern="\d(10)"
-                                title="Enter Valid Phone Number">
-                            <div id="phonenumber" class="feedback invalid-feedback">
-                                Enter valid phone number.
+                                title="Enter Valid Phone Number" oninput="validatePhone();">
+                            <div id="phonenumber" class="message">
+                                <!-- Enter valid phone number. -->
                             </div>
                         </div>
                         <div class="by3">
@@ -332,9 +335,9 @@
 
                             <br><br>
                             <input class="inpt2 form-feild form-control" id="email" type="email" name="email" required
-                                placeholder="What is your e-mail address?">
-                            <div class="feedback invalid-feedback">
-                                Enter valid email.
+                                placeholder="What is your e-mail address?" disabled oninput="validateEmail();">
+                            <div class="message" id="email-feedback">
+                                <!-- Enter valid email. -->
                             </div>
                         </div>
                         <div class="by3">
@@ -356,19 +359,20 @@
                     </div>
                     <div class="container">
                         <div class="by4">
+                            <!-- flexRadioDefault1 -->
                             <label>DESIRED TEAM</label>
                             <sup style="color: red;">*</sup>
                             <br><br>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="CHELSEA" onclick="validateDesiredTeam()">
                             <span>CHELSEA</span>
                             <br>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="MANCHESTER UNITED" onclick="validateDesiredTeam()">
                             <span>MANCHESTER UNITED</span>
                             <br>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="LIVERPOOL" onclick="validateDesiredTeam()">
                             <span>LIVERPOOL</span>
                             <br>
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="BARCELONA" onclick="validateDesiredTeam()">
                             <span>BARCELONA</span>
                             <br>
                         </div>
@@ -391,7 +395,7 @@
 
                             <div class="form-check">
                                 <input class="form-feild form-check-input" type="checkbox"
-                                    onclick="return validate_dpCheck()" name="dpchecks" value="1" id="goalKeeperCheck"
+                                    onclick=" validate_dpCheck()" name="dpchecks" value="1" id="goalKeeperCheck"
                                     aria-describedby="desiredpositionchecks">
                                 <label class="form-check-label" for="goalKeeperCheck">
                                     GOAL KEEPER
@@ -399,7 +403,7 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-feild form-check-input" type="checkbox"
-                                    onclick="return validate_dpCheck()" name="dpchecks" value="2" id="offensiveCheck"
+                                    onclick=" validate_dpCheck()" name="dpchecks" value="2" id="offensiveCheck"
                                     aria-describedby="desiredpositionchecks">
                                 <label class="form-check-label" for="offensiveCheck">
                                     OFFENSIVE
@@ -407,7 +411,7 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-feild form-check-input" type="checkbox"
-                                    onclick="return validate_dpCheck()" name="dpchecks" value="3" id="defenseCheck"
+                                    onclick=" validate_dpCheck()" name="dpchecks" value="3" id="defenseCheck"
                                     aria-describedby="desiredpositionchecks">
                                 <label class="form-check-label" for="defenseCheck">
                                     DEFENSE
@@ -415,7 +419,7 @@
                             </div>
                             <div class="form-check">
                                 <input class="form-feild form-check-input" type="checkbox"
-                                    onclick="return validate_dpCheck()" name="dpchecks" value="4" id="receiverCheck"
+                                    onclick=" validate_dpCheck()" name="dpchecks" value="4" id="receiverCheck"
                                     aria-describedby="desiredpositionchecks">
                                 <label class="form-check-label" for="receiverCheck">
                                     RECEIVER
@@ -439,9 +443,9 @@
                             <br><br>
                             <input class="form-control is-invalid b4" id="validationServer05"
                                 aria-describedby="validationServer05Feedback" type="text" name=""
-                                placeholder="Enter your Pin Code">
-                            <div id="validationServer05Feedback" class="invalid-feedback">
-                                Enter valid Pin Code.
+                                placeholder="Enter your Pin Code" maxlength="6" minlength="6" size="6">
+                            <div id="pin-feedback" class="message">
+                                
                             </div>
                         </div>
                     </div>
@@ -451,9 +455,9 @@
                             <label for="countrySelect" class="region">COUNTRY</label>
                             <sup style="color: red;" class="region">*</sup>
                             <br><br>
-                            <select class="form-feild form-select inpt3" id="i1" required name="countryselect" required>
+                            <select class="form-feild form-select inpt3" id="i1" required name="countryselect" required onclick="locations();">
                                 <option selected disabled value="0">Select the country</option>
-                                <option value="">India</option>
+                                <option id="India" value="India" >India</option>
 
                             </select>
 
@@ -461,7 +465,7 @@
                             <label for="stateSelect" class="region1">STATE</label>
                             <sup style="color: red;" class="region1">*</sup>
                             <br><br>
-                            <select class="form-feild form-select inpt3" name="stateselect" id="i2" required>
+                            <select  class="form-feild form-select inpt3" name="stateselect" id="i2" required>
                                 <option value="">Select State</option>
                                 <option value="">Punjab</option>
                                 <option value="">Harayana</option>
@@ -472,7 +476,7 @@
                             <label for="citySelect" class="region2">CITY</label>
                             <sup style="color: red;" class="region2">*</sup>
                             <br><br>
-                            <select class="form-feild form-select inpt3" name="" id="i3" required>
+                            <select  class="form-feild form-select inpt3" name="" id="i3" required>
                                 <option value="">Select City</option>
                                 <option value="">Chandigarh</option>
                                 <option value="">Jalandhar</option>
@@ -483,7 +487,7 @@
                     </div>
                     <br><br><br>
                     <!-- <button class="placebtn btnnn" type="submit"></button> -->
-                    <button type="submit" class="btn btn-success placebtn" onclick="">Phewww! Let's submit it</button>
+                    <button type="submit" class="btn btn-success placebtn" id="submitbtn" disabled onclick="">Phewww! Let's submit it</button>
                     </center>
                     <br>
                     <hr>
